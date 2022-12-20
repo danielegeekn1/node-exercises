@@ -1,5 +1,26 @@
 {
   "dependencies": {
     "figlet": "^1.5.2"
-  }
+  },
+  "devDependencies": {
+    "jest": "^29.3.1",
+    "supertest": "^6.3.3"
+  },
+  "name": "develhope-exercises",
+  "version": "1.0.0",
+  "main": "app.test 2.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danielegeekn1/node-exercises.git"
+  },
+  "author": "daniele basile",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/danielegeekn1/node-exercises/issues"
+  },
+  "homepage": "https://github.com/danielegeekn1/node-exercises#readme",
+  "description": ""
 }
