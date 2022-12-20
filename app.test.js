@@ -12,11 +12,5 @@ test("GET /", async () => {
     .expect(200)
     .expect("Content-Type", "text/html");
 
-  expect(response.text).toEqual(
-    <html>
-      <body>
-        <h1>Welcome in the world wide web</h1>
-      </body>
-    </html>
-  );
+  expect(response.body).toEqual("Welcome to the World Wide Web");
 });

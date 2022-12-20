@@ -1,20 +1,14 @@
-const { createServer } = require("node:http");
-
+let http = require("http");
+const { createServer } = require("tls");
 function createApp() {
-  return createServer((request, response) => {
-    console.log("request received");
-
-    response.statusCode = 200;
-
-    response.setHeader("Content-Type", "text/html");
-
-    response.end(
-      "<html><body><h1>Welcome in the world wide web</h1></body></html>"
-    );
+  return createServer((req, res) => {
+    res.statusCode = 200;
+    res.setHeader("Content-Type", "text/html");
+    // res.setHeader("Content-Type", "application/json");
+    // const jsonBody = JSON.stringify({ location: "Earth" });
+    res.end("Welcome to the World Wide Web");
   });
 }
-
 // server.listen(3000, () => {
-//   console.log(`Server running at http://localhost:3000`);
+//   console.log("listening to the server");
 // });
-module.exports = createApp;
