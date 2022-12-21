@@ -9,6 +9,6 @@ function createApp() {
     res.end("Welcome to the World Wide Web");
   });
 }
-// server.listen(3000, () => {
-//   console.log("listening to the server");
-// });
+server.lister(3000, () => {
+  console.log("listening to the server");
+});
