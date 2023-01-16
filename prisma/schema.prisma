@@ -10,9 +10,9 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Anime {
+model anime {
   id              Int                     @id @default(autoincrement())
   name            String                  @db.VarChar(255)
   description     String? 
-  time            DateTime                @default(now())                
+  time            DateTime?                @default(now())                
 }
