@@ -29,4 +29,28 @@ app.get("/resources", async (req, res) => {
   const resources = await prisma.anime.findMany();
   res.json(resources);
 });
+//updating a resource
+app.put("/resourcer/:id(//d+)", async (req, res) => {
+  const resource = req.body;
+  const data = await prisma.anime.update({
+    where: {
+      id: Number(req.params.id),
+    },
+    data: resource,
+  });
+  res.status(201).json(data);
+});
+//deleting a resource
+app.delete("/resourcer/:id(//d+)", async (req, res, next) => {
+  const planetId = Number(req.params.id);
+  try {
+    await prisma.anime.delete({
+      where: { id: planetId },
+    });
+    res.status(201).end();
+  } catch (e) {
+    res.status(404);
+    next(`Cannot delete the resource with ${planetId}`);
+  }
+});
 app.listen(port);
