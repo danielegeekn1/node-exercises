@@ -9,12 +9,27 @@ const prisma = new PrismaClient();
 import express from "express";
 import "express-async-errors";
 import cors from "cors";
+import multer from "multer";
+import bodyParser from "body-parser";
 const app = express();
 const port = process.env.PORT;
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "/uploads");
+  },
+  filename: (req, file, cb) => {
+    cb(null, file.originalname);
+  },
+});
+const upload = multer({ storage: storage });
 app.use(express.json());
 const corsOptions = {
   origin: "http://localhost3000/resources",
 };
+app.use(bodyParser.json({ limit: "1gb" }));
+app.use(bodyParser.urlencoded({ extended: true, limit: 1000000 }));
+
 app.use(cors(corsOptions));
 //RETRIEVE ALL RESOURCES OF MY PRISMA MODEL
 app.post("/resources", async (req, res) => {
@@ -56,5 +71,9 @@ app.delete("/resources/:id(//d+)", async (req, res, next) => {
     res.status(404);
     next(`Cannot delete the resource with ${planetId}`);
   }
+});
+//uploading a photo
+app.post("/", upload.single("file"), (req, res) => {
+  res.json({ message: "hola" });
 });
 app.listen(port);
