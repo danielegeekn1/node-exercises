@@ -8,12 +8,16 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 import express from "express";
 import "express-async-errors";
+import cors from "cors";
 const app = express();
 const port = process.env.PORT;
 app.use(express.json());
-
+const corsOptions = {
+  origin: "http://localhost3000/resources",
+};
+app.use(cors(corsOptions));
 //RETRIEVE ALL RESOURCES OF MY PRISMA MODEL
-app.post("/data", async (req, res) => {
+app.post("/resources", async (req, res) => {
   const { name, description, time } = req.body;
   const data = await prisma.anime.create({
     data: {
@@ -30,7 +34,7 @@ app.get("/resources", async (req, res) => {
   res.json(resources);
 });
 //updating a resource
-app.put("/resourcer/:id(//d+)", async (req, res) => {
+app.put("/resources/:id(//d+)", async (req, res) => {
   const resource = req.body;
   const data = await prisma.anime.update({
     where: {
@@ -41,7 +45,7 @@ app.put("/resourcer/:id(//d+)", async (req, res) => {
   res.status(201).json(data);
 });
 //deleting a resource
-app.delete("/resourcer/:id(//d+)", async (req, res, next) => {
+app.delete("/resources/:id(//d+)", async (req, res, next) => {
   const planetId = Number(req.params.id);
   try {
     await prisma.anime.delete({
