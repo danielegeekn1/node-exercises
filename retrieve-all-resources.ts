@@ -13,23 +13,8 @@ const port = process.env.PORT;
 app.use(express.json());
 
 //RETRIEVE ALL RESOURCES OF MY PRISMA MODEL
-//1st creating our first data according to our Prisma model
-app.post("/data", async (req, res) => {
-  const data = await prisma.anime.createMany({
-    data: [
-      {
-        id: 1,
-        name: "One Piece",
-      },
-      {
-        id: 2,
-        name: "Demon Slayer",
-      },
-    ],
-  });
-  res.status(201).json(data);
-});
-//2nd fetching all the data we created
+
+//fetching all the data we created
 app.get("/resources", async (req, res) => {
   const resources = await prisma.anime.findMany();
   res.json(resources);
