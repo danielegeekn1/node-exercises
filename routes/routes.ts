@@ -8,6 +8,7 @@ import {
   getAllUsers,
   updateUsers,
 } from "../controllers/controllers";
+import { checkAuthorization } from "../middlewares/passport";
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, "/uploads");
@@ -18,13 +19,13 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 //RETRIEVE ALL RESOURCES OF MY PRISMA MODEL
-app.post("/resources", createUsers);
+app.post("/resources", checkAutorization, createUsers);
 //fetching all the data we created
-app.get("/resources", getAllUsers);
+app.get("/resources", checkAuthorization, getAllUsers);
 //updating a resource
-app.put("/resources/:id(//d+)", updateUsers);
+app.put("/resources/:id(//d+)", checkAuthorization, updateUsers);
 //deleting a resource
-app.delete("/resources/:id(//d+)", deleteUsers);
+app.delete("/resources/:id(//d+)", checkAuthorization, deleteUsers);
 //uploading a photo
 app.post("/", upload.single("file"), (req, res) => {
   res.json({ message: "hola" });

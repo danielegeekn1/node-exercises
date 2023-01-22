@@ -1,6 +1,7 @@
 import passport from "passport";
 import passportGithub2 from "passport-github2";
 import config from "../config";
+import { RequestHandler } from "express";
 const passportStrategy = new passportGithub2.Strategy(
   {
     clientID: config.GITHUB_CLIENT_ID,
@@ -22,4 +23,10 @@ const passportStrategy = new passportGithub2.Strategy(
 passport.use(passportStrategy);
 passport.serializeUser<Express.User>((user, done) => done(null, user)); //store user data in the session
 passport.deserializeUser<Express.User>((user, done) => done(null, user)); //use our user stored data
+export const checkAuthorization = (req, res, next) => {
+  if (req.isAuthenticated) {
+    return next();
+  }
+  res.status(404).end();
+};
 export { passport };
