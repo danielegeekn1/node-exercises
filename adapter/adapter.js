@@ -29,17 +29,17 @@ class LogStorageFSAdapter {
     this.filepath = filepath;
   }
 
-  async info(message) {
+  async write(message) {
     try {
-      await fs.appendFile(this.filepath, `[INFO] ${message}\n`);
+      await fs.appendFile(this.filepath, message);
     } catch (error) {
       console.error(error);
     }
   }
 
-  async error(error) {
+  async read() {
     try {
-      await fs.appendFile(this.filepath, `the error is ${error}`);
+      return await fs.readFile(this.filepath, { encoding: "utf-8" });
     } catch (error) {
       console.error(error);
     }
